@@ -15,6 +15,12 @@ model Psicologos {
   name String
   email String
   password String
+  crp String
+  phone String
+  cep String
+  clinicAddress String
+  startingTime String
+  endTime String
 
   pacientes Pacientes[]
 
@@ -24,6 +30,7 @@ model Psicologos {
 model Pacientes {
   id String @id
   name String
+  address String
   matricula String @unique
   email String @unique
   password String
