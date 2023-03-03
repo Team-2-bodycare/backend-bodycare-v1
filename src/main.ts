@@ -19,8 +19,8 @@ async function bootstrap() {
     .setVersion('1.0')
     .addServer('http://localhost:3333')
     .addTag('Auth')
-    .addTag('Psicologo')
-    .addTag('Paciente')
+    .addTag('Psicologos')
+    .addTag('Pacientes')
     .addTag('Notas')
     .addBearerAuth()
     .build();
