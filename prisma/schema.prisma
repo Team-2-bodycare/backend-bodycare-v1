@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Psicologos {
-  id String @id
+  id String @id @default(uuid())
   name String
   email String
   password String
@@ -28,7 +28,7 @@ model Psicologos {
 }
 
 model Pacientes {
-  id String @id
+  id String @id @default(uuid())
   name String
   cep String
   address String
@@ -46,7 +46,7 @@ model Pacientes {
 }
 
 model Notes {
-  id String @id
+  id String @id @default(uuid())
   note String
   score Float?
   comment String?
