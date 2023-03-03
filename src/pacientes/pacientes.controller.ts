@@ -35,7 +35,7 @@ export class PacientesController {
 
   @Get(':id')
   @ApiOperation({
-    summary: 'Retornar de um paciente',
+    summary: 'Retorno de um paciente por ID',
   })
   async findOne(@Param('id') id: string) {
     return await this.pacientesService.findOne(id);
@@ -43,7 +43,7 @@ export class PacientesController {
 
   @Patch(':id')
   @ApiOperation({
-    summary: 'Atualizar de um paciente',
+    summary: 'Atualizar um paciente',
   })
   async update(@Param('id') id: string, @Body() dto: UpdatePacienteDto) {
     return await this.pacientesService.update(id, dto);

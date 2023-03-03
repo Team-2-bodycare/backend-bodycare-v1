@@ -15,12 +15,10 @@ export class PacientesService {
   async create(dto: CreatePacienteDto) {
     const hashedPassword: string = bcrypt.hashSync(dto.password, 8);
     const matricula: string = generateId();
-    const psicologoId: string = randomUUID(); // Aqui sera substituido pelo ID do psicologo que fara o cadastro
     const data: Paciente = {
       ...dto,
       password: hashedPassword,
       matricula,
-      psicologoId,
     };
 
     return await this.prisma.pacientes

@@ -50,4 +50,12 @@ export class CreatePacienteDto {
     description: 'Seu numero de telefone para contato',
   })
   phone: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty({
+    example: '123e4567-e89b-12d3-a456-426655440000',
+    description: 'ID do psicologo',
+  })
+  psicologoId: string;
 }
