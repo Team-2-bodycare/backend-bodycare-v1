@@ -18,9 +18,9 @@ model Psicologos {
   crp String
   phone String
   cep String
-  clinicAddress String
-  startingTime String
-  endTime String
+  clinicAddress String @map("clinic_address")
+  startingTime String @map("starting_time")
+  endTime String @map("end_time")
 
   pacientes Pacientes[] @relation("pacientes")
 
