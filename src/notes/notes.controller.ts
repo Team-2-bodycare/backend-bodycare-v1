@@ -12,7 +12,7 @@ import { CreateNotesDto } from './dto/create-notes.dto';
 import { UpdateNotesDto } from './dto/update-notes.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
-@ApiTags('Notes')
+@ApiTags('Notas')
 @Controller('notes')
 export class NotesController {
   constructor(private readonly notesService: NotesService) {}
