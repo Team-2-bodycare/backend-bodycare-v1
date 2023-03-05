@@ -22,52 +22,70 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+# Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Installation
+# Installation
+
+## Clone the project
 
 ```bash
+$ git clone 'project link Github'
 $ npm install
+
 ```
 
-## Running the app
+# Settings
+
+- Create the .env file and configure following the .env.exemple
+- ```bash
+  $ npx prisma generate
+
+  $ npx prisma migrate dev
+
+  ```
+
+# Running the app
 
 ```bash
 # development
-$ npm run start
+$ npm start
 
 # watch mode
-$ npm run start:dev
+$ npm start:dev
 
 # production mode
-$ npm run start:prod
+$ npm start:prod
 ```
 
-## Test
+# Using the routes (test)
 
-```bash
-# unit tests
-$ npm run test
+## Swagger
 
-# e2e tests
-$ npm run test:e2e
+http://localhost:3333/docs#/
 
-# test coverage
-$ npm run test:cov
-```
+## Postman and similar
 
-## Support
+### Create the endpoints with the following routes:
+
+- http://localhost:3333/psicologos
+- http://localhost:3333/pacientes
+- http://localhost:3333/notes
+
+# Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Stay in touch
+# Stay in touch
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## Authors
 
-## License
+- https://www.linkedin.com/in/gregoriogeotol/
+- https://www.linkedin.com/in/fe-nunes/
+- https://www.linkedin.com/in/atilamariano/
+- https://www.linkedin.com/in/msantos95/
+
+# License
 
 Nest is [MIT licensed](LICENSE).
