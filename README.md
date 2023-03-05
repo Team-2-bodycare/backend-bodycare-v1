@@ -38,7 +38,7 @@ $ npm install
 
 # Settings
 
-- Create the .env file and configure following the .env.exemple
+- Create the .env file and configure following the .env.example
 - ```bash
   $ npx prisma generate
 
