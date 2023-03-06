@@ -4,4 +4,6 @@ export class Notes {
   score: number;
   comment: string;
   pacienteId: string;
+  createdAt: Date;
+  updatedAt: Date;
 }

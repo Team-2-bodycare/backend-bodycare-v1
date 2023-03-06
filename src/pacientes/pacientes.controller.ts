@@ -11,6 +11,7 @@ import { PacientesService } from './pacientes.service';
 import { CreatePacienteDto } from './dto/create-paciente.dto';
 import { UpdatePacienteDto } from './dto/update-paciente.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Paciente } from './entities/paciente.entity';
 
 @ApiTags('Pacientes')
 @Controller('pacientes')
@@ -21,7 +22,7 @@ export class PacientesController {
   @ApiOperation({
     summary: 'Criação de um paciente',
   })
-  async create(@Body() dto: CreatePacienteDto) {
+  async create(@Body() dto: CreatePacienteDto): Promise<Paciente> {
     return await this.pacientesService.create(dto);
   }
 
@@ -29,7 +30,7 @@ export class PacientesController {
   @ApiOperation({
     summary: 'Retornar todos os pacientes de um Psicologo',
   })
-  async findMany(@Param('id') id: string) {
+  async findMany(@Param('id') id: string): Promise<Paciente[]> {
     return await this.pacientesService.findMany(id);
   }
 
@@ -37,7 +38,7 @@ export class PacientesController {
   @ApiOperation({
     summary: 'Retorno de um paciente por ID',
   })
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string): Promise<Paciente> {
     return await this.pacientesService.findOne(id);
   }
 
@@ -45,7 +46,10 @@ export class PacientesController {
   @ApiOperation({
     summary: 'Atualizar um paciente',
   })
-  async update(@Param('id') id: string, @Body() dto: UpdatePacienteDto) {
+  async update(
+    @Param('id') id: string,
+    @Body() dto: UpdatePacienteDto,
+  ): Promise<Paciente> {
     return await this.pacientesService.update(id, dto);
   }
 

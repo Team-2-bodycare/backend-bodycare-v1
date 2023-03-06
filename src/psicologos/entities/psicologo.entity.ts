@@ -1,3 +1,5 @@
+import { Paciente } from 'src/pacientes/entities/paciente.entity';
+
 export class Psicologo {
   id?: string;
   name: string;
@@ -9,4 +11,8 @@ export class Psicologo {
   clinicAddress: string;
   startingTime: string;
   endTime: string;
+  createdAt: Date;
+  updatedAt: Date;
+
+  pacientes?: Paciente[];
 }

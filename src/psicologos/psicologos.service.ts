@@ -21,6 +21,8 @@ export class PsicologosService {
     clinicAddress: true,
     startingTime: true,
     endTime: true,
+    createdAt: true,
+    updatedAt: true,
   };
 
   private pacienteSelect = {
@@ -33,31 +35,46 @@ export class PsicologosService {
     password: false,
     phone: true,
     psicologoId: false,
+    createdAt: true,
+    updatedAt: true,
   };
 
-  async create(dto: CreatePsicologoDto) {
+  private notesSelect = {
+    id: true,
+    note: true,
+    score: true,
+    comment: true,
+    createdAt: true,
+    updatedAt: true,
+    pacienteId: false,
+  };
+
+  async create(dto: CreatePsicologoDto): Promise<Psicologo> {
     const hashedPassword: string = bcrypt.hashSync(dto.password, 8);
-    const data: Psicologo = { ...dto, password: hashedPassword };
+    const data = { ...dto, password: hashedPassword };
 
     return await this.prisma.psicologos
       .create({ data, select: { ...this.psicologoSelect } })
       .catch(handleErrorConstraintUnique);
   }
 
-  async findAll() {
+  async findAll(): Promise<Psicologo[]> {
     return await this.prisma.psicologos.findMany({
       select: {
         ...this.psicologoSelect,
         pacientes: {
           select: {
             ...this.pacienteSelect,
+            notes: {
+              select: { ...this.notesSelect },
+            },
           },
         },
       },
     });
   }
 
-  async findOne(id: string) {
+  async findOne(id: string): Promise<Psicologo> {
     return await this.prisma.psicologos.findUnique({
       where: { id },
       select: {
@@ -65,13 +82,16 @@ export class PsicologosService {
         pacientes: {
           select: {
             ...this.pacienteSelect,
+            notes: {
+              select: { ...this.notesSelect },
+            },
           },
         },
       },
     });
   }
 
-  async update(id: string, dto: UpdatePsicologoDto) {
+  async update(id: string, dto: UpdatePsicologoDto): Promise<Psicologo> {
     const hashedPassword: string = bcrypt.hashSync(dto.password, 8);
     const data: UpdatePsicologoDto = {
       ...dto,
@@ -79,7 +99,21 @@ export class PsicologosService {
     };
 
     return this.prisma.psicologos
-      .update({ where: { id }, data, select: { ...this.psicologoSelect } })
+      .update({
+        where: { id },
+        data,
+        select: {
+          ...this.psicologoSelect,
+          pacientes: {
+            select: {
+              ...this.pacienteSelect,
+              notes: {
+                select: { ...this.notesSelect },
+              },
+            },
+          },
+        },
+      })
       .catch(handleErrorConstraintUnique);
   }
 

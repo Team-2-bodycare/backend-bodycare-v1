@@ -11,6 +11,7 @@ import { NotesService } from './notes.service';
 import { CreateNotesDto } from './dto/create-notes.dto';
 import { UpdateNotesDto } from './dto/update-notes.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Notes } from './entities/notes.entity';
 
 @ApiTags('Notas')
 @Controller('notes')
@@ -21,7 +22,7 @@ export class NotesController {
   @ApiOperation({
     summary: 'Criação de uma nota',
   })
-  async create(@Body() dto: CreateNotesDto) {
+  async create(@Body() dto: CreateNotesDto): Promise<Notes> {
     return await this.notesService.create(dto);
   }
 
@@ -29,7 +30,7 @@ export class NotesController {
   @ApiOperation({
     summary: 'Retornar todas as notas de um Paciente',
   })
-  async findMany(@Param('id') id: string) {
+  async findMany(@Param('id') id: string): Promise<Notes[]> {
     return await this.notesService.findMany(id);
   }
 
@@ -37,7 +38,7 @@ export class NotesController {
   @ApiOperation({
     summary: 'Retorno de uma nota por ID',
   })
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string): Promise<Notes> {
     return await this.notesService.findOne(id);
   }
 
@@ -45,7 +46,10 @@ export class NotesController {
   @ApiOperation({
     summary: 'Atualizar uma nota',
   })
-  async update(@Param('id') id: string, @Body() dto: UpdateNotesDto) {
+  async update(
+    @Param('id') id: string,
+    @Body() dto: UpdateNotesDto,
+  ): Promise<Notes> {
     return await this.notesService.update(id, dto);
   }
 

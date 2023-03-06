@@ -15,12 +15,14 @@ model Psicologos {
   name String
   email String
   password String
-  crp String
-  phone String
-  cep String
-  clinicAddress String @map("clinic_address")
-  startingTime String @map("starting_time")
-  endTime String @map("end_time")
+  crp String?
+  phone String?
+  cep String?
+  clinicAddress String? @map("clinic_address")
+  startingTime String? @map("starting_time")
+  endTime String? @map("end_time")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   pacientes Pacientes[] @relation("pacientes")
 
@@ -30,12 +32,14 @@ model Psicologos {
 model Pacientes {
   id String @id @default(uuid())
   name String
-  cep String
-  address String
   matricula String @unique
   email String @unique
   password String
-  phone String
+  cep String?
+  address String?
+  phone String?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   notes Notes[]
 
@@ -50,6 +54,8 @@ model Notes {
   note String
   score Float?
   comment String?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   paciente Pacientes @relation(fields: [pacienteId], references: [id])
   pacienteId String
