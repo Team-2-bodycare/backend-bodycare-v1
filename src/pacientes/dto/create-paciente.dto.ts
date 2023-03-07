@@ -13,22 +13,6 @@ export class CreatePacienteDto {
   @IsString()
   @IsNotEmpty()
   @ApiProperty({
-    example: 'xx.xxx-xxx',
-    description: 'CEP de onde voce mora',
-  })
-  cep: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty({
-    example: 'Rua/Av Siqueira Junior, 77',
-    description: 'endereço de onde você mora + numero',
-  })
-  address: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty({
     example: 'email@email.com',
     description: 'Seu melhor e-mail para cadastro',
   })
@@ -42,14 +26,6 @@ export class CreatePacienteDto {
     description: 'Senha contendo no mínimo 8 digitos',
   })
   password: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty({
-    example: '(xx)x xxxx-xxxx',
-    description: 'Seu numero de telefone para contato',
-  })
-  phone: string;
 
   @IsString()
   @IsNotEmpty()
