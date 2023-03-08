@@ -1,9 +1,17 @@
 import { PartialType } from '@nestjs/swagger';
 import { CreatePacienteDto } from './create-paciente.dto';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNotEmpty, MinLength } from 'class-validator';
+import { IsString, IsNotEmpty } from 'class-validator';
 
 export class UpdatePacienteDto extends PartialType(CreatePacienteDto) {
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty({
+    example: 'email@email.com',
+    description: 'Seu melhor e-mail para cadastro',
+  })
+  email: string;
+
   @IsString()
   @IsNotEmpty()
   @ApiProperty({

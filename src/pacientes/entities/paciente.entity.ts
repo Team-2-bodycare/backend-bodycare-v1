@@ -4,8 +4,8 @@ export class Paciente {
   id?: string;
   name: string;
   matricula: string;
-  email: string;
   password: string;
+  email?: string;
   cep?: string;
   address?: string;
   phone?: string;

@@ -15,10 +15,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: { email: string; type: string }) {
+  async validate(payload: { credential: string; type: string }) {
     if (payload.type === 'psicologo') {
       const user: Psicologo = await this.prisma.psicologos.findUnique({
-        where: { email: payload.email },
+        where: { email: payload.credential },
       });
 
       if (!user) {
@@ -29,8 +29,13 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
       return user;
     } else if (payload.type === 'paciente') {
-      const user: Paciente = await this.prisma.pacientes.findUnique({
-        where: { email: payload.email },
+      const user: Paciente = await this.prisma.pacientes.findFirst({
+        where: {
+          OR: [
+            { matricula: payload.credential },
+            { email: payload.credential },
+          ],
+        },
       });
 
       if (!user) {

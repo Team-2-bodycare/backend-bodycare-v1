@@ -12,14 +12,6 @@ export class CreatePacienteDto {
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({
-    example: 'email@email.com',
-    description: 'Seu melhor e-mail para cadastro',
-  })
-  email: string;
-
-  @IsString()
-  @IsNotEmpty()
   @MinLength(8)
   @ApiProperty({
     example: 'Fulano@123',

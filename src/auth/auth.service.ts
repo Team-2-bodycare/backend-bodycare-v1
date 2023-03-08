@@ -83,11 +83,11 @@ export class AuthService {
   ) {}
 
   async login(dto: LoginDto): Promise<LoginResponseDto> {
-    const { email, password, type } = dto;
+    const { credential, password, type } = dto;
 
     if (type === 'psicologo') {
       const user: Psicologo = await this.prisma.psicologos.findUnique({
-        where: { email },
+        where: { email: credential },
         select: {
           ...this.psicologoSelect01,
           pacientes: {
@@ -114,14 +114,14 @@ export class AuthService {
 
       delete user.password;
 
-      const token: string = this.jwtService.sign({ email, type });
+      const token: string = this.jwtService.sign({ credential, type });
 
       return { token, user };
     }
 
     if (type === 'paciente') {
-      const user: Paciente = await this.prisma.pacientes.findUnique({
-        where: { email },
+      const user: Paciente = await this.prisma.pacientes.findFirst({
+        where: { OR: [{ matricula: credential }, { email: credential }] },
         select: {
           ...this.pacienteSelect01,
           psicologo: {
@@ -138,7 +138,7 @@ export class AuthService {
       });
 
       if (!user) {
-        throw new NotFoundException('Email ou senha inválidos');
+        throw new NotFoundException('Matricula/Email ou senha inválidos');
       }
 
       const passwordMatch: boolean = await bcrypt.compare(
@@ -147,12 +147,12 @@ export class AuthService {
       );
 
       if (!passwordMatch) {
-        throw new NotFoundException('Email ou senha inválidos');
+        throw new NotFoundException('Matricula/Email ou senha inválidos');
       }
 
       delete user.password;
 
-      const token: string = this.jwtService.sign({ email, type });
+      const token: string = this.jwtService.sign({ credential, type });
 
       return { token, user };
     }

@@ -33,8 +33,8 @@ model Pacientes {
   id String @id @default(uuid())
   name String
   matricula String @unique
-  email String @unique
   password String
+  email String? @unique
   cep String?
   address String?
   phone String?
