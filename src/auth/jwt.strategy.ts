@@ -28,7 +28,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       delete user.password;
 
       return user;
-    } else if (payload.type === 'psicologo') {
+    } else if (payload.type === 'paciente') {
       const user: Paciente = await this.prisma.pacientes.findUnique({
         where: { email: payload.email },
       });
