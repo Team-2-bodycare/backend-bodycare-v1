@@ -6,13 +6,17 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { NotesService } from './notes.service';
 import { CreateNotesDto } from './dto/create-notes.dto';
 import { UpdateNotesDto } from './dto/update-notes.dto';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Notes } from './entities/notes.entity';
+import { AuthGuard } from '@nestjs/passport';
 
+@UseGuards(AuthGuard())
+@ApiBearerAuth()
 @ApiTags('Notas')
 @Controller('notes')
 export class NotesController {

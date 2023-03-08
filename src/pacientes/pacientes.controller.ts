@@ -6,13 +6,17 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { PacientesService } from './pacientes.service';
 import { CreatePacienteDto } from './dto/create-paciente.dto';
 import { UpdatePacienteDto } from './dto/update-paciente.dto';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 import { Paciente } from './entities/paciente.entity';
 
+@UseGuards(AuthGuard())
+@ApiBearerAuth()
 @ApiTags('Pacientes')
 @Controller('pacientes')
 export class PacientesController {

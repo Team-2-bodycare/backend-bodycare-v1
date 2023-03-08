@@ -6,11 +6,13 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { PsicologosService } from './psicologos.service';
 import { CreatePsicologoDto } from './dto/create-psicologo.dto';
 import { UpdatePsicologoDto } from './dto/update-psicologo.dto';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('Psicologos')
 @Controller('psicologos')
@@ -26,6 +28,8 @@ export class PsicologosController {
   }
 
   @Get()
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Retornar todos os psicologos',
   })
@@ -34,6 +38,8 @@ export class PsicologosController {
   }
 
   @Get(':id')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Retorno de um psicologo por ID',
   })
@@ -42,6 +48,8 @@ export class PsicologosController {
   }
 
   @Patch(':id')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Atualizar um psicologo',
   })
@@ -50,6 +58,8 @@ export class PsicologosController {
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Deletar de um psicologo',
   })
