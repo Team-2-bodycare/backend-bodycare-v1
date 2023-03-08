@@ -15,23 +15,31 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: { email: string }) {
-    let user: Psicologo | Paciente = await this.prisma.psicologos.findUnique({
-      where: { email: payload.email },
-    });
-
-    if (!user) {
-      user = await this.prisma.pacientes.findUnique({
+  async validate(payload: { email: string; type: string }) {
+    if (payload.type === 'psicologo') {
+      const user: Psicologo = await this.prisma.psicologos.findUnique({
         where: { email: payload.email },
       });
 
       if (!user) {
         throw new UnauthorizedException('Não autorizado');
       }
+
+      delete user.password;
+
+      return user;
+    } else if (payload.type === 'psicologo') {
+      const user: Paciente = await this.prisma.pacientes.findUnique({
+        where: { email: payload.email },
+      });
+
+      if (!user) {
+        throw new UnauthorizedException('Não autorizado');
+      }
+
+      delete user.password;
+
+      return user;
     }
-
-    delete user.password;
-
-    return user;
   }
 }

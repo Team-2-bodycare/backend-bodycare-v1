@@ -114,7 +114,7 @@ export class AuthService {
 
       delete user.password;
 
-      const token: string = this.jwtService.sign({ email });
+      const token: string = this.jwtService.sign({ email, type });
 
       return { token, user };
     }
@@ -152,7 +152,7 @@ export class AuthService {
 
       delete user.password;
 
-      const token: string = this.jwtService.sign({ email });
+      const token: string = this.jwtService.sign({ email, type });
 
       return { token, user };
     }

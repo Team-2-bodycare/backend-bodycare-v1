@@ -52,7 +52,7 @@ export class PacientesService {
 
   async create(dto: CreatePacienteDto): Promise<Paciente> {
     const hashedPassword: string = bcrypt.hashSync(dto.password, 8);
-    const matricula: string = generateId();
+    const matricula: string = generateId(dto.name);
     const data = {
       ...dto,
       password: hashedPassword,
