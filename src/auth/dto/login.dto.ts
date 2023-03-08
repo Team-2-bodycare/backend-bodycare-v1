@@ -1,8 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class LoginDto {
-  @IsEmail()
+  @IsString()
+  @IsNotEmpty()
   @ApiProperty({
     description: 'email ou matricula do usuário que está tentando logar',
     example: 'usuario@mail.com',
