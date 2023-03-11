@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNotEmpty } from 'class-validator';
+import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class CreateNotesDto {
   @IsString()
@@ -9,14 +9,6 @@ export class CreateNotesDto {
     description: 'Nota do Paciente',
   })
   note: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty({
-    example: 'Preciso melhorar',
-    description: 'Comentário do Paciente',
-  })
-  comment: string;
 
   @IsString()
   @IsNotEmpty()

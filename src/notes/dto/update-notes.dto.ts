@@ -1,14 +1,14 @@
 import { PartialType } from '@nestjs/swagger';
 import { CreateNotesDto } from './create-notes.dto';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class UpdateNotesDto extends PartialType(CreateNotesDto) {
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
   @ApiProperty({
-    example: '10',
-    description: 'Score do Paciente',
+    example: 'Preciso melhorar',
+    description: 'Comentário do Paciente',
   })
-  score: number;
+  comment: string;
 }

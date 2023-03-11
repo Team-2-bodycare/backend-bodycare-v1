@@ -42,7 +42,6 @@ export class PsicologosService {
   private notesSelect = {
     id: true,
     note: true,
-    score: true,
     comment: true,
     createdAt: true,
     updatedAt: true,
@@ -66,7 +65,7 @@ export class PsicologosService {
           select: {
             ...this.pacienteSelect,
             notes: {
-              select: { ...this.notesSelect },
+              select: { ...this.notesSelect, score: true },
             },
           },
         },
@@ -83,7 +82,7 @@ export class PsicologosService {
           select: {
             ...this.pacienteSelect,
             notes: {
-              select: { ...this.notesSelect },
+              select: { ...this.notesSelect, score: true },
             },
           },
         },
@@ -108,7 +107,7 @@ export class PsicologosService {
             select: {
               ...this.pacienteSelect,
               notes: {
-                select: { ...this.notesSelect },
+                select: { ...this.notesSelect, score: true },
               },
             },
           },

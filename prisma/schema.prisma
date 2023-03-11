@@ -52,7 +52,6 @@ model Pacientes {
 model Notes {
   id String @id @default(uuid())
   note String
-  score Float?
   comment String?
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -60,5 +59,22 @@ model Notes {
   paciente Pacientes @relation(fields: [pacienteId], references: [id])
   pacienteId String
 
+  score Score?
+
   @@map("notes")
+}
+
+model Score {
+  id String @id @default(uuid())
+  positive Float
+  negative Float
+  mixed Float
+  neutral Float
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  note Notes @relation(fields: [noteId], references: [id], onDelete: Cascade)
+  noteId String @unique
+
+  @@map("score")
 }

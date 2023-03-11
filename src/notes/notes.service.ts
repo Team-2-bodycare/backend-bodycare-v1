@@ -4,6 +4,8 @@ import { CreateNotesDto } from './dto/create-notes.dto';
 import { UpdateNotesDto } from './dto/update-notes.dto';
 import { handleErrorConstraintUnique } from 'src/utils/handle-error-unique.util';
 import { Notes } from './entities/notes.entity';
+import * as AWS from 'aws-sdk';
+import { CreateScoreDto } from './dto/create-score.dto';
 
 @Injectable()
 export class NotesService {
@@ -26,7 +28,6 @@ export class NotesService {
   private notesSelect = {
     id: true,
     note: true,
-    score: true,
     comment: true,
     createdAt: true,
     updatedAt: true,
@@ -38,7 +39,7 @@ export class NotesService {
       ...dto,
     };
 
-    return await this.prisma.notes
+    const note: Notes = await this.prisma.notes
       .create({
         data,
         select: {
@@ -47,6 +48,28 @@ export class NotesService {
         },
       })
       .catch(handleErrorConstraintUnique);
+
+    const comprehend = new AWS.Comprehend({
+      region: 'us-east-1',
+      accessKeyId: 'AKIAQMPLZDZIJIGSBNK2',
+      secretAccessKey: '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',
+    });
+
+    const result = await comprehend
+      .detectSentiment({ Text: note.note, LanguageCode: 'pt' })
+      .promise();
+
+    const dataScore: CreateScoreDto = {
+      positive: result.SentimentScore.Positive,
+      negative: result.SentimentScore.Negative,
+      mixed: result.SentimentScore.Mixed,
+      neutral: result.SentimentScore.Neutral,
+      noteId: note.id,
+    };
+
+    await this.prisma.score.create({ data: dataScore });
+
+    return note;
   }
 
   async findMany(id: string): Promise<Notes[]> {
@@ -55,6 +78,7 @@ export class NotesService {
       select: {
         ...this.notesSelect,
         paciente: { select: { ...this.pacienteSelect } },
+        score: true,
       },
     });
   }
@@ -65,6 +89,7 @@ export class NotesService {
       select: {
         ...this.notesSelect,
         paciente: { select: { ...this.pacienteSelect } },
+        score: true,
       },
     });
   }
@@ -81,6 +106,7 @@ export class NotesService {
         select: {
           ...this.notesSelect,
           paciente: { select: { ...this.pacienteSelect } },
+          score: true,
         },
       })
       .catch(handleErrorConstraintUnique);
