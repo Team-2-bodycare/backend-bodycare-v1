@@ -50,9 +50,9 @@ export class NotesService {
       .catch(handleErrorConstraintUnique);
 
     const comprehend = new AWS.Comprehend({
-      region: 'us-east-1',
-      accessKeyId: 'AKIAQMPLZDZIJIGSBNK2',
-      secretAccessKey: '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',
+      region: process.env.REGION,
+      accessKeyId: process.env.KEY,
+      secretAccessKey: process.env.SECRETKEY,
     });
 
     const result = await comprehend
