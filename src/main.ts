@@ -17,6 +17,7 @@ async function bootstrap() {
     .setTitle('BUDDY CARE NEST API')
     .setDescription('API criada em Nest.JS referente ao bootcamp da BLUE')
     .setVersion('1.0')
+    .addServer('https://buddycare-api.onrender.com/')
     .addServer('http://localhost:3333')
     .addTag('Auth')
     .addTag('Psicologos')
